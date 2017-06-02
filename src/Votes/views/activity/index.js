@@ -1,6 +1,6 @@
 ﻿(function () {
-    angular.module('MetronicApp').controller('views.plan.index', ['$scope', 'settings', '$uibModal', "dataFactory","$state",'appSession',
-        function ($scope, settings, $uibModal, dataFactory, $state, appSession) {
+    angular.module('MetronicApp').controller('views.activity.index', ['$scope', "$state", 'settings', "dataFactory", 'appSession',
+        function ($scope, $state, settings, dataFactory, appSession) {
             // ajax初始化
             $scope.$on('$viewContentLoaded', function () {
                 App.initAjax();
@@ -25,7 +25,7 @@
                 vm.filter.pageNum = vm.table.pageConfig.currentPage;
                 vm.filter.pageSize = vm.table.pageConfig.itemsPerPage;
                 vm.filter.org_id = appSession.orgid;
-                dataFactory.action("api/plan/getPlanList", "", null, vm.filter)
+                dataFactory.action("api/card/getCardList", "", null, vm.filter)
                     .then(function (res) {
                         if (res.result == "1") {
                             vm.table.pageConfig.totalItems = res.total;
@@ -37,29 +37,31 @@
                     });
             };
             vm.init();
-    
+            vm.add = function () {
+                $state.go("modify");
+            }
             vm.edit = function () {
                 var id = Object.getOwnPropertyNames(vm.table.checkModel);
                 if (id.length != 1) {
                     abp.notify.warn("请选择一个操作对象");
                     return;
                 }
-                $state.go("modifyplan", { id: id[0] });
+                $state.go("modify", { id: id[0] });
             }
+
             vm.delete = function () {
                 var ids = Object.getOwnPropertyNames(vm.table.checkModel);
-                if (ids.length <= 0) {
-                    abp.notify.warn("请选择要删除的对象");
+                if (ids.length != 1) {
+                    abp.notify.warn("请选择一个操作对象");
                     return;
                 }
+                var temp = vm.table.checkModel[ids[0]];
                 abp.message.confirm(
                '删除将导致数据无法显示', //确认提示
                '确定要删除么?',//确认提示（可选参数）
                function (isConfirmed) {
                    if (isConfirmed) {
-                       //...delete user 点击确认后执行
-                       //api/resource/delete
-                       dataFactory.action("api/resource/delete", "", null, { list: ids }).then(function (res) {
+                       dataFactory.action("api/card/delete?card_id="+temp.card_id, "", null, {  }).then(function (res) {
                            abp.notify.success("删除成功");
                            vm.init();
                        });
@@ -67,7 +69,7 @@
                    });
 
             }
-          
+      
         }])
 })();
 

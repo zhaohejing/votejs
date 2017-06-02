@@ -1,17 +1,17 @@
-﻿<div ng-controller="views.plan.modify as vm">
+﻿<div ng-controller="views.activity.modify as vm">
     <div class="portlet light bordered">
         <form name="modalform" role="form" novalidate class="form-validation">
             <div class="modal-header">
                 <h4 class="modal-title">
-                    <span ng-if="!vm.plan.id">添加方案</span>
-                    <span ng-if="vm.plan.id">编辑方案: {{vm.plan.name}} </span>
+                    <span ng-if="!vm.plan.id">添加活动</span>
+                    <span ng-if="vm.plan.id">编辑活动: {{vm.plan.name}} </span>
                 </h4>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-xs-6">
                         <div class="form-group form-md-line-input">
-                            <label class="col-md-3 control-label">场景名称</label>
+                            <label class="col-md-3 control-label">活动名称</label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" placeholder="单次价格" readonly
                                        ng-class="{'edited':vm.plan.scene_type>0}" required ng-model="vm.plan.scene_name">

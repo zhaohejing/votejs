@@ -91,14 +91,14 @@ MetronicApp.controller('SidebarController', ['$state', '$scope', function ($stat
         Layout.initSidebar($state); // init sidebar
     });
     vm.list = [
-      { url: "coupon", title: "卡券管理", icon: "fa fa-clipboard" },
-      {
-          url: "", title: "方案管理", icon: "fa fa-suitcase", child: [
-               { url: "plan", title: "方案列表", icon: "fa fa-sticky-note" },
-               { url: "record", title: "领取记录", icon: "fa fa-bars" },
-          ]
-      },
-      { url: "prompt", title: "未中奖提示", icon: "fa fa-cogs" },
+      { url: "activity", title: "活动管理", icon: "fa fa-clipboard" },
+      //{
+      //    url: "", title: "方案管理", icon: "fa fa-suitcase", child: [
+      //         { url: "plan", title: "方案列表", icon: "fa fa-sticky-note" },
+      //         { url: "record", title: "领取记录", icon: "fa fa-bars" },
+      //    ]
+      //},
+      //{ url: "prompt", title: "未中奖提示", icon: "fa fa-cogs" },
     ];
 
 }]);
@@ -112,14 +112,14 @@ MetronicApp.controller('FooterController', ['$scope', function ($scope) {
 //路由设置
 MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
     // Redirect any unmatched url
-    $urlRouterProvider.otherwise("/coupon.html");
+    $urlRouterProvider.otherwise("/activity.html");
     var abp = abp;
     $stateProvider
-        //卡券管理
-        .state("coupon", {
-            url: "/coupon.html",
-            templateUrl: "views/coupon/index.html",
-            data: { pageTitle: '卡券管理' },
+        //活动管理
+        .state("activity", {
+            url: "/activity.html",
+            templateUrl: "views/activity/index.html",
+            data: { pageTitle: '活动管理' },
             resolve: {
                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                     return $ocLazyLoad.load(
@@ -130,18 +130,12 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                                 'assets/global/plugins/plupload/angular-local-storage.js',
                                 'assets/global/plugins/plupload/qupload.js',
                             ]
-                        }, {
-                            name: 'Modal',
-                            insertBefore: '#ng_load_plugins_before',
-                            files: [
-                                'views/coupon/modal.js'
-                            ]
                         },
                         {
                             name: 'MetronicApp',
                             insertBefore: '#ng_load_plugins_before',
                             files: [
-                                'views/coupon/index.js'
+                                'views/activity/index.js'
                             ]
                         }]
 
@@ -150,78 +144,25 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             }
         })
          //方案管理
-        .state("plan", {
-            url: "/plan.html",
-            templateUrl: "views/plan/index.html",
-            data: { pageTitle: '方案管理' },
-            resolve: {
-                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                    return $ocLazyLoad.load({
-                        name: 'MetronicApp',
-                        insertBefore: '#ng_load_plugins_before',
-                        files: [
-                            'views/plan/index.js'
-                        ]
-                    });
-                }]
-            }
-        })
+     
         //添加方案
-       .state("modifyplan", {
-           url: "/modifyplan.html",
+       .state("modify", {
+           url: "/modify.html",
            params: { "id": null },
-           templateUrl: "views/plan/modify.html",
-           data: { pageTitle: '方案管理' },
+           templateUrl: "views/activity/modify.html",
+           data: { pageTitle: '管理活动' },
            resolve: {
                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                    return $ocLazyLoad.load({
                        name: 'MetronicApp',
                        insertBefore: '#ng_load_plugins_before',
                        files: [
-                           'views/plan/modify.js',
-                           'views/plan/modal.js',
+                           'views/activity/modify.js',
                        ]
                    });
                }]
            }
        })
-        //中奖提示
-         .state("prompt", {
-             url: "/prompt.html",
-             params: { "id": null },
-             templateUrl: "views/prompt/index.html",
-             data: { pageTitle: '未中奖提示' },
-             resolve: {
-                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                     return $ocLazyLoad.load({
-                         name: 'MetronicApp',
-                         insertBefore: '#ng_load_plugins_before',
-                         files: [
-                             'views/prompt/index.js',
-                             'views/prompt/modal.js'
-                         ]
-                     });
-                 }]
-             }
-         })
-      //领取记录
-         .state("record", {
-             url: "/record.html",
-             templateUrl: "views/record/index.html",
-             data: { pageTitle: '领取记录' },
-             resolve: {
-                 deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                     return $ocLazyLoad.load({
-                         name: 'MetronicApp',
-                         insertBefore: '#ng_load_plugins_before',
-                         files: [
-                             'views/record/index.js',
-                         ]
-                     });
-                 }]
-             }
-         })
-    
 }]);
 
 //启动
