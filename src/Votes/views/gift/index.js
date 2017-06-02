@@ -1,12 +1,12 @@
 ﻿(function () {
-    angular.module('MetronicApp').controller('views.activity.index', ['$scope', "$state", 'settings', "dataFactory", 'appSession',
-        function ($scope, $state, settings, dataFactory, appSession) {
+    angular.module('MetronicApp').controller('views.gift.index', ['$scope','settings', "dataFactory",'$uibModal',
+        function ($scope, settings, dataFactory, $uibModal) {
             // ajax初始化
             $scope.$on('$viewContentLoaded', function () {
                 App.initAjax();
             });
             var vm = this;
-            vm.filter = { index:1,size:10,filter:"" };
+            vm.filter = { index: 1, size: 10, filter: "" };
       
             //页面属性
             vm.table = {
@@ -24,7 +24,7 @@
                 vm.table.checkModel = {};
                 vm.filter.index = vm.table.pageConfig.currentPage;
                 vm.filter.size = vm.table.pageConfig.itemsPerPage;
-                dataFactory.action("api/activity/activitys", "", null, vm.filter)
+                dataFactory.action("api/gift/gifts", "", null, vm.filter)
                     .then(function (res) {
                         if (res.success) {
                             vm.table.pageConfig.totalItems = res.result.total;
@@ -39,7 +39,18 @@
             };
             vm.init();
             vm.add = function () {
-                $state.go("modify");
+                var modal = $uibModal.open({
+                    templateUrl: 'views/gift/modal.html',
+                    controller: 'views.gift.modal as vm',
+                    backdrop: 'static',
+                    // size: 'sm',//模态框的大小尺寸
+                    resolve: {
+                        model: function () { return {} },
+                    }
+                });
+                modal.result.then(function (response) {
+                    vm.init();
+                })
             }
             vm.edit = function () {
                 var id = Object.getOwnPropertyNames(vm.table.checkModel);
@@ -47,7 +58,18 @@
                     abp.notify.warn("请选择一个操作对象");
                     return;
                 }
-                $state.go("modify", { id: id[0] });
+                var modal = $uibModal.open({
+                    templateUrl: 'views/gift/modal.html',
+                    controller: 'views.gift.modal as vm',
+                    backdrop: 'static',
+                    //  size: 'sm',//模态框的大小尺寸
+                    resolve: {
+                        model: function () { return { id: id[0] } },
+                    }
+                });
+                modal.result.then(function (response) {
+                    vm.init();
+                })
             }
 
             vm.delete = function () {
@@ -62,7 +84,7 @@
                '确定要删除么?',//确认提示（可选参数）
                function (isConfirmed) {
                    if (isConfirmed) {
-                       dataFactory.action("api/card/delete?card_id="+temp.card_id, "", null, {  }).then(function (res) {
+                       dataFactory.action("api/gift/delete", "", null, {id:ids[0]}).then(function (res) {
                            abp.notify.success("删除成功");
                            vm.init();
                        });

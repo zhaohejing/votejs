@@ -11,12 +11,12 @@
       
             vm.activity = {};
             if (vm.activity) {
-                dataFactory.action("api/plan/getPlan", "", null, { id: aid })
+                dataFactory.action("api/activity/detail", "", null, { id: aid })
                   .then(function (res) {
-                      if (res.result == "1") {
-                          vm.activity = res.data;
+                      if (res.success) {
+                          vm.activity = res.result;
                       } else {
-                          abp.notify.error(res.errMsg);
+                          abp.notify.error(res.error);
                       }
                   });
             } else {
@@ -62,7 +62,6 @@
                     }
                 })
             }
-
         }]);
 })();
 

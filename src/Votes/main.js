@@ -31,7 +31,7 @@ MetronicApp.factory('appSession', [
           function () {
               var _session = null;
               var cookie = $.cookie("eggsResult");
-              if (cookie!= ""&&cookie!=undefined) {
+              if (cookie != "" && cookie != undefined) {
                   var temp = $.parseJSON(cookie);
                   _session = temp;
               }
@@ -98,7 +98,7 @@ MetronicApp.controller('SidebarController', ['$state', '$scope', function ($stat
       //         { url: "record", title: "领取记录", icon: "fa fa-bars" },
       //    ]
       //},
-      //{ url: "prompt", title: "未中奖提示", icon: "fa fa-cogs" },
+      { url: "gift", title: "礼物管理", icon: "fa fa-cogs" },
     ];
 
 }]);
@@ -144,7 +144,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
             }
         })
          //方案管理
-     
+
         //添加方案
        .state("modify", {
            url: "/modify.html",
@@ -160,6 +160,38 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                            'views/activity/modify.js',
                        ]
                    });
+               }]
+           }
+       })
+      //添加方案
+       .state("gift", {
+           url: "/gift.html",
+           templateUrl: "views/gift/index.html",
+           data: { pageTitle: '礼物管理' },
+           resolve: {
+               deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                   return $ocLazyLoad.load([{
+                       name: 'QiNiu',
+                       insertBefore: '#ng_load_plugins_before',
+                       files: [
+                           'assets/global/plugins/plupload/angular-local-storage.js',
+                           'assets/global/plugins/plupload/qupload.js',
+                       ]
+                   }, {
+                       name: 'Modal',
+                       insertBefore: '#ng_load_plugins_before',
+                       files: [
+                           'views/gift/modal.js'
+                       ]
+                   },
+                        {
+                            name: 'MetronicApp',
+                            insertBefore: '#ng_load_plugins_before',
+                            files: [
+                                'views/gift/index.js'
+                            ]
+                        }]
+);
                }]
            }
        })

@@ -468,6 +468,10 @@
     <Content Include="views\activity\index.js" />
     <Content Include="views\activity\modify.html" />
     <Content Include="views\activity\modify.js" />
+    <Content Include="views\gift\index.html" />
+    <Content Include="views\gift\index.js" />
+    <Content Include="views\gift\modal.html" />
+    <Content Include="views\gift\modal.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
