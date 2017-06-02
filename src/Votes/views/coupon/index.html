@@ -1,0 +1,69 @@
+﻿<div ng-controller="views.coupon.index as vm">
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <i class="fa fa-hand-o-right"></i>
+                <a href="#">卡券管理</a>
+            </li>
+        </ul>
+    </div>
+    <div class="portlet light bordered">
+        <div class="row">
+            <div class="col-xs-8 text-left">
+                <div class="col-md-12">
+                    <div class="input-icon right">
+                        <i ng-click="vm.init()" class="fa fa-search"></i>
+                        <input type="text" class="form-control input-circle" placeholder="按条件搜索" ng-model="vm.filter.name">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-4 text-right">
+                <button class="btn btn-primary blue" ng-click="vm.add()"><i class="fa fa-plus"></i> 添加</button>
+                <button class="btn btn-primary blue" ng-click="vm.edit()"><i class="fa fa-plus"></i> 编辑</button>
+                <button class="btn btn-primary blue" ng-click="vm.delete()"><i class="fa fa-times"></i> 删除</button>
+            </div>
+        </div>
+      <div class="row">
+          <table object-table
+                 data="vm.table.data"
+                 check-model="vm.table.checkModel"
+                 display="vm.table.pageConfig.itemsPerPage"
+                 headers="类型,卡券名,券名,库存"
+                 fields="card_type,title,card_id,quantity">
+              <tbody>
+                  <tr ng-click="$owner.showeditinfo(item);setSelected(item)">
+                      <td>
+                          <input type="checkbox" ng-model="::item.checked"  
+                                 ng-click="$event.stopPropagation(); checkOne(item)" />
+                      </td>
+                      <td >
+                          <span ng-show="item.card_type==1">代金券</span>
+                          <span ng-show="item.card_type==2">折扣券</span>
+                          <span ng-show="item.card_type==3">礼品券</span>
+                      </td>
+                      <td show-td item="item" name="title"></td>
+
+                      <td show-td item="item" name="card_id"></td>
+                      <td show-td item="item" name="quantity"></td>
+                    
+                  </tr>
+              </tbody>
+          </table>
+          <!--分页-->
+          <nav class="paging">
+              <obj-pagination conf="vm.table.pageConfig"></obj-pagination>
+          </nav>
+
+      </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
