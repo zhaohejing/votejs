@@ -3,18 +3,14 @@
         <ul class="page-breadcrumb">
             <li>
                 <i class="fa fa-hand-o-right"></i>
-                <a href="#">添加活动</a>
+                <a ng-if="!vm.activity.id" href="#">添加活动</a>
+                <a ng-if="vm.activity.id" href="#">编辑活动: {{vm.activity.title}}</a>
             </li>
         </ul>
     </div>
     <div class="portlet light bordered">
         <form name="modalform" role="form" novalidate class="form-validation">
-            <div class="modal-header">
-                <h4 class="modal-title">
-                    <span ng-if="!vm.activity.id">添加活动</span>
-                    <span ng-if="vm.activity.id">编辑活动: {{vm.activity.title}} </span>
-                </h4>
-            </div>
+        
             <div class="modal-body">
                 <div class="row">
                     <div class="col-xs-6">

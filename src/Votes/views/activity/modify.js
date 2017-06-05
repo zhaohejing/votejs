@@ -54,11 +54,11 @@
                 vm.activity.images = vm.file.show;
                 var url = "api/activity/modify";
                 dataFactory.action(url, "", null, vm.activity).then(function (res) {
-                    if (res.result == "1") {
+                    if (res.success) {
                         abp.notify.success("成功");
                         $state.go("activity");
                     } else {
-                        abp.notify.error(res.errMsg);
+                        abp.notify.error(res.error);
                     }
                 })
             }

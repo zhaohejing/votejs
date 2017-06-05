@@ -43,7 +43,7 @@
                     templateUrl: 'views/gift/modal.html',
                     controller: 'views.gift.modal as vm',
                     backdrop: 'static',
-                    // size: 'sm',//模态框的大小尺寸
+                     size: 'lg',//模态框的大小尺寸
                     resolve: {
                         model: function () { return {} },
                     }
@@ -62,7 +62,7 @@
                     templateUrl: 'views/gift/modal.html',
                     controller: 'views.gift.modal as vm',
                     backdrop: 'static',
-                    //  size: 'sm',//模态框的大小尺寸
+                      size: 'lg',//模态框的大小尺寸
                     resolve: {
                         model: function () { return { id: id[0] } },
                     }

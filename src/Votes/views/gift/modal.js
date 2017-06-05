@@ -19,7 +19,8 @@
                     abp.notify.warn("请先上传文件");
                     return;
                 }
-                vm.gift.giftImage = vm.file.show[0].url;
+                vm.gift.imageName = vm.file.show[0].imageName;
+                vm.gift.imageUrl = vm.file.show[0].imageUrl;
                 dataFactory.action(vm.url, "", null, vm.gift).then(function (res) {
                     if (res.success) {
                         $uibModalInstance.close();
@@ -76,7 +77,7 @@
                         token: vm.file.token
                     });
                     vm.file.selectFiles[index].upload.then(function (response) {
-                        var dto = { title: vm.file.selectFiles[index].file.name, url: "http://7niu.efanyun.com/" + response.key };
+                        var dto = { imageName: vm.file.selectFiles[index].file.name, imageUrl: "http://7niu.efanyun.com/" + response.key };
                         vm.file.show.push(dto);
                         vm.file.uploadstate = true;
                     }, function (response) {
