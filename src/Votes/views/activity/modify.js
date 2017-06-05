@@ -10,7 +10,7 @@
          var aid = $stateParams.id;
       
             vm.activity = {};
-            if (vm.activity) {
+            if (aid) {
                 dataFactory.action("api/activity/detail", "", null, { id: aid })
                   .then(function (res) {
                       if (res.success) {
@@ -19,10 +19,7 @@
                           abp.notify.error(res.error);
                       }
                   });
-            } else {
-                abp.notify.warn("请选择方案再操作");
-                $state.go("activity");
-            }
+            } 
          
             vm.cancel = function () {
                 $state.go("activity");
