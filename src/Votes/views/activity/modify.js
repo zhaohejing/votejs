@@ -1,7 +1,7 @@
 ﻿(function () {
     angular.module('MetronicApp').controller('views.activity.modify',
-        ['$scope', 'settings', '$uibModal', '$state', '$stateParams', 'dataFactory', 'appSession',
-        function ($scope, settings, $uibModal, $state, $stateParams, dataFactory, appSession) {
+        ['$scope', 'settings', '$uibModal', '$state', '$stateParams', 'dataFactory', 'appSession','$qupload',
+        function ($scope, settings, $uibModal, $state, $stateParams, dataFactory, appSession, $qupload) {
             $scope.$on('$viewContentLoaded', function () {
                 // initialize core components
                 App.initAjax();
