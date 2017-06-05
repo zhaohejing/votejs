@@ -8,7 +8,28 @@
             });
             var vm = this;
          var aid = $stateParams.id;
-      
+         vm.date = {
+             leftopen: false,
+             rightopen: false,
+             inlineOptions: {
+                 showWeeks: false
+             },
+             dateOptions: {
+                 //dateDisabled: disabled,
+                 formatYear: 'yyyy',
+                 formatMonth: 'MM',
+                 formatDay: 'dd',
+                 maxDate: new Date(5000, 1, 1),
+                 minDate: new Date(1900, 1, 1),
+                 startingDay: 1
+             },
+             openleft: function () {
+                 vm.date.leftopen = !vm.date.leftopen;
+             },
+             openright: function () {
+                 vm.date.rightopen = !vm.date.rightopen;
+             }
+         }
             vm.activity = {};
             if (aid) {
                 dataFactory.action("api/activity/detail", "", null, { id: aid })
@@ -26,31 +47,13 @@
             }
             //保存
             vm.save = function () {
-                if (!vm.plan.scene_type) {
-                    abp.notify.warn("请选择场景");
+                if (vm.file.show.length<=0) {
+                    abp.notify.warn("请先上传文件");
                     return;
                 }
-                if (!vm.plan.game_id) {
-                    abp.notify.warn("请选择游戏");
-                    return;
-                }
-                if (vm.c.cardlist.length <= 0) {
-                    abp.notify.warn("请选择卡券");
-                    return;
-                }
-                vm.plan.cardList = vm.c.cardlist;
-                if (vm.o.coll.length <= 0) {
-                    abp.notify.warn("请选择组织");
-                    return;
-                }
-                vm.plan.machineList = vm.o.coll;
-                if (vm.t.select.length <= 0) {
-                    abp.notify.warn("请选择提示信息");
-                    return;
-                }
-                vm.plan.tipsList = vm.t.select;
-                var url = "api/plan/updatePlan";
-                dataFactory.action(url, "", null, vm.plan).then(function (res) {
+                vm.activity.images = vm.file.show;
+                var url = "api/activity/modify";
+                dataFactory.action(url, "", null, vm.activity).then(function (res) {
                     if (res.result == "1") {
                         abp.notify.success("成功");
                         $state.go("activity");
@@ -59,6 +62,57 @@
                     }
                 })
             }
+
+            vm.file = {
+                multiple: false,
+                token: "",
+                init: function () {
+                    dataFactory.action("api/token/qnToken", "", null, {}).then(function (res) {
+                        if (res.result == "1") {
+                            vm.file.token = res.data;
+                        }
+                    })
+                },
+                uploadstate: false,
+                show: [],
+                selectFiles: [],
+                start: function (index) {
+                    vm.file.selectFiles[index].progress = {
+                        p: 0
+                    };
+                    vm.file.selectFiles[index].upload = $qupload.upload({
+                        key: '',
+                        file: vm.file.selectFiles[index].file,
+                        token: vm.file.token
+                    });
+                    vm.file.selectFiles[index].upload.then(function (response) {
+                        var dto = { title: vm.file.selectFiles[index].file.name, url: "http://7niu.efanyun.com/" + response.key };
+                        vm.file.show.push(dto);
+                        vm.file.uploadstate = true;
+                    }, function (response) {
+                        abp.notify.error("上传失败,请重试");
+                    }, function (evt) {
+                        // progress
+                        vm.file.selectFiles[index].progress.p = Math.floor(100 * evt.loaded / evt.totalSize);
+                    });
+                },
+                abort: function () {
+                    //  vm.model.address = response.address;
+                    vm.file.show = [];
+                    vm.selectFiles = [];
+                },
+                onFileSelect: function ($files) {
+                    vm.file.selectFiles = [];
+                    var offsetx = vm.file.selectFiles.length;
+                    for (var i = 0; i < $files.length; i++) {
+                        vm.file.selectFiles[i + offsetx] = {
+                            file: $files[i]
+                        };
+                        vm.file.start(i + offsetx);
+                    }
+                }
+            }
+            vm.file.init();
         }]);
 })();
 
