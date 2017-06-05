@@ -1,19 +1,25 @@
 ﻿angular.module('MetronicApp').controller('views.gift.modal',
-    ['$scope', 'settings', '$uibModalInstance', 'model',  'dataFactory','$qupload',
+    ['$scope', 'settings', '$uibModalInstance', 'model', 'dataFactory', '$qupload',
         function ($scope, settings, $uibModalInstance, model, dataFactory, $qupload) {
             $scope.$on('$viewContentLoaded', function () {
                 App.initAjax();
 
             });
             var vm = this;
+            vm.level = [{ id: 1, name: "一等奖" }, { id: 2, name: "二等奖" }, { id: 3, name: "三等奖" }, { id: 4, name: "参与奖" }];
             vm.gift = {};
-                vm.url = "api/gift/modify";
-                vm.save = function () {
-                    if (vm.file.show.length!=1) {
-                        abp.notify.warn("请先上传文件");
-                        return;
-                    }
-                    vm.gift.giftImage = vm.file.show[0].url;
+            vm.activitys = [];
+            vm.url = "api/gift/modify";
+            vm.save = function () {
+                if (!vm.gift.activityId||vm.gift.activityId<=0) {
+                    abp.notify.warn("请先创建活动");
+                    return;
+                }
+                if (vm.file.show.length != 1) {
+                    abp.notify.warn("请先上传文件");
+                    return;
+                }
+                vm.gift.giftImage = vm.file.show[0].url;
                 dataFactory.action(vm.url, "", null, vm.gift).then(function (res) {
                     if (res.success) {
                         $uibModalInstance.close();
@@ -25,11 +31,19 @@
             vm.cancel = function () {
                 $uibModalInstance.dismiss();
             };
-          
+
 
             vm.init = function () {
+                dataFactory.action("api/activity/allactivitys", "", null, { }).then(function (res) {
+                    if (res.success) {
+                        vm.activitys = res.result;
+                    } else {
+                        abp.notify.error("获取失败,请重试");
+                    }
+                });
+
                 if (model.id) {
-                    dataFactory.action("api/gift/detail", "", null, { id:model.id}).then(function (res) {
+                    dataFactory.action("api/gift/detail", "", null, { id: model.id }).then(function (res) {
                         if (res.success) {
                             vm.gift = res.result;
                         } else {
@@ -40,19 +54,19 @@
             }
             vm.init();
             vm.file = {
-                multiple:false,
-                token:"",
-                init:function(){
+                multiple: false,
+                token: "",
+                init: function () {
                     dataFactory.action("api/token/qnToken", "", null, {}).then(function (res) {
                         if (res.result == "1") {
                             vm.file.token = res.data;
                         }
                     })
                 },
-                uploadstate:false,
-                show:[],
+                uploadstate: false,
+                show: [],
                 selectFiles: [],
-                start :function (index) {
+                start: function (index) {
                     vm.file.selectFiles[index].progress = {
                         p: 0
                     };
@@ -62,7 +76,7 @@
                         token: vm.file.token
                     });
                     vm.file.selectFiles[index].upload.then(function (response) {
-                        var dto = { title:vm.file.selectFiles[index].file.name,url:"http://7niu.efanyun.com/" + response.key };
+                        var dto = { title: vm.file.selectFiles[index].file.name, url: "http://7niu.efanyun.com/" + response.key };
                         vm.file.show.push(dto);
                         vm.file.uploadstate = true;
                     }, function (response) {
@@ -72,12 +86,12 @@
                         vm.file.selectFiles[index].progress.p = Math.floor(100 * evt.loaded / evt.totalSize);
                     });
                 },
-                abort : function () {
+                abort: function () {
                     //  vm.model.address = response.address;
                     vm.file.show = [];
                     vm.selectFiles = [];
                 },
-                onFileSelect:function ($files) {
+                onFileSelect: function ($files) {
                     vm.file.selectFiles = [];
                     var offsetx = vm.file.selectFiles.length;
                     for (var i = 0; i < $files.length; i++) {
