@@ -13,6 +13,7 @@ var MetronicApp = angular.module("MetronicApp", [
     'angularFileUpload',//文件上传
     'abp', 'ngLocale',
     "isteven-multi-select",//下拉标签
+    , "textAngular"
 ]);
 
 //懒加载

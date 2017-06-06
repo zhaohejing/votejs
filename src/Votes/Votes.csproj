@@ -265,6 +265,13 @@
     <Content Include="assets\global\plugins\sweetalert\sweet-alert.html" />
     <Content Include="assets\global\plugins\sweetalert\sweet-alert.js" />
     <Content Include="assets\global\plugins\sweetalert\sweet-alert.min.js" />
+    <Content Include="assets\global\plugins\textangular\textAngular-rangy.min.js" />
+    <Content Include="assets\global\plugins\textangular\textAngular-sanitize.js" />
+    <Content Include="assets\global\plugins\textangular\textAngular-sanitize.min.js" />
+    <Content Include="assets\global\plugins\textangular\textAngular.css" />
+    <Content Include="assets\global\plugins\textangular\textAngular.js" />
+    <Content Include="assets\global\plugins\textangular\textAngular.min.js" />
+    <Content Include="assets\global\plugins\textangular\textAngular.umd.js" />
     <Content Include="assets\global\plugins\toastr\toastr.css" />
     <Content Include="assets\global\plugins\toastr\toastr.js" />
     <Content Include="assets\global\plugins\toastr\toastr.min.css" />
