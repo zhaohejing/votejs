@@ -101,6 +101,7 @@ MetronicApp.controller('SidebarController', ['$state', '$scope', function ($stat
       //    ]
       //},
       { url: "gift", title: "礼物管理", icon: "fa fa-cogs" },
+      { url: "prize", title: "奖品管理", icon: "fa fa-cogs" },
     ];
 
 }]);
@@ -177,7 +178,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                }]
            }
        })
-      //添加方案
+      //礼物方案
        .state("gift", {
            url: "/gift.html",
            templateUrl: "views/gift/index.html",
@@ -203,6 +204,38 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                             insertBefore: '#ng_load_plugins_before',
                             files: [
                                 'views/gift/index.js'
+                            ]
+                        }]
+);
+               }]
+           }
+       })
+       //奖品方案
+       .state("prize", {
+           url: "/prize.html",
+           templateUrl: "views/prize/index.html",
+           data: { pageTitle: '奖品管理' },
+           resolve: {
+               deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                   return $ocLazyLoad.load([{
+                       name: 'QiNiu',
+                       insertBefore: '#ng_load_plugins_before',
+                       files: [
+                           'assets/global/plugins/plupload/angular-local-storage.js',
+                           'assets/global/plugins/plupload/qupload.js',
+                       ]
+                   }, {
+                       name: 'Modal',
+                       insertBefore: '#ng_load_plugins_before',
+                       files: [
+                           'views/prize/modal.js'
+                       ]
+                   },
+                        {
+                            name: 'MetronicApp',
+                            insertBefore: '#ng_load_plugins_before',
+                            files: [
+                                'views/prize/index.js'
                             ]
                         }]
 );

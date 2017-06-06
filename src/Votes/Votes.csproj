@@ -479,6 +479,10 @@
     <Content Include="views\gift\index.js" />
     <Content Include="views\gift\modal.html" />
     <Content Include="views\gift\modal.js" />
+    <Content Include="views\prize\index.html" />
+    <Content Include="views\prize\index.js" />
+    <Content Include="views\prize\modal.html" />
+    <Content Include="views\prize\modal.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
