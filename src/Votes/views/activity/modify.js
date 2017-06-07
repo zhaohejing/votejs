@@ -47,7 +47,7 @@
             }
             //保存
             vm.save = function () {
-                if (vm.file.show.length<=0) {
+                if (vm.activity.id<=0&& vm.file.show.length<=0) {
                     abp.notify.warn("请先上传文件");
                     return;
                 }
