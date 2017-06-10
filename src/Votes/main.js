@@ -242,6 +242,39 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProv
                }]
            }
        })
+        //参与者管理
+       .state("actor", {
+           url: "/actor.html",
+           params: { "id": null },
+           templateUrl: "views/actor/index.html",
+           data: { pageTitle: '奖品管理' },
+           resolve: {
+               deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                   return $ocLazyLoad.load([{
+                       name: 'QiNiu',
+                       insertBefore: '#ng_load_plugins_before',
+                       files: [
+                           'assets/global/plugins/plupload/angular-local-storage.js',
+                           'assets/global/plugins/plupload/qupload.js',
+                       ]
+                   }, {
+                       name: 'Modal',
+                       insertBefore: '#ng_load_plugins_before',
+                       files: [
+                           'views/actor/modal.js'
+                       ]
+                   },
+                        {
+                            name: 'MetronicApp',
+                            insertBefore: '#ng_load_plugins_before',
+                            files: [
+                                'views/actor/index.js'
+                            ]
+                        }]
+);
+               }]
+           }
+       })
 }]);
 
 //启动

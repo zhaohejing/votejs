@@ -99,7 +99,7 @@
                 abort: function () {
                     //  vm.model.address = response.address;
                     vm.file.show = [];
-                    vm.selectFiles = [];
+                    vm.file.selectFiles = [];
                 },
                 onFileSelect: function ($files) {
                     vm.file.selectFiles = [];

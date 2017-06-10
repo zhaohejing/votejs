@@ -25,7 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TypeScriptToolsVersion>2.2</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>2.3</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -476,6 +476,10 @@
     <Content Include="views\activity\index.js" />
     <Content Include="views\activity\modify.html" />
     <Content Include="views\activity\modify.js" />
+    <Content Include="views\actor\index.html" />
+    <Content Include="views\actor\index.js" />
+    <Content Include="views\actor\modal.html" />
+    <Content Include="views\actor\modal.js" />
     <Content Include="views\gift\index.html" />
     <Content Include="views\gift\index.js" />
     <Content Include="views\gift\modal.html" />
