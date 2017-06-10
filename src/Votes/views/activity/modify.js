@@ -1,35 +1,35 @@
 ﻿(function () {
     angular.module('MetronicApp').controller('views.activity.modify',
-        ['$scope', 'settings', '$uibModal', '$state', '$stateParams', 'dataFactory', 'appSession','$qupload',
+        ['$scope', 'settings', '$uibModal', '$state', '$stateParams', 'dataFactory', 'appSession', '$qupload',
         function ($scope, settings, $uibModal, $state, $stateParams, dataFactory, appSession, $qupload) {
             $scope.$on('$viewContentLoaded', function () {
                 // initialize core components
                 App.initAjax();
             });
             var vm = this;
-         var aid = $stateParams.id;
-         vm.date = {
-             leftopen: false,
-             rightopen: false,
-             inlineOptions: {
-                 showWeeks: false
-             },
-             dateOptions: {
-                 //dateDisabled: disabled,
-                 formatYear: 'yyyy',
-                 formatMonth: 'MM',
-                 formatDay: 'dd',
-                 maxDate: new Date(5000, 1, 1),
-                 minDate: new Date(1900, 1, 1),
-                 startingDay: 1
-             },
-             openleft: function () {
-                 vm.date.leftopen = !vm.date.leftopen;
-             },
-             openright: function () {
-                 vm.date.rightopen = !vm.date.rightopen;
-             }
-         }
+            var aid = $stateParams.id;
+            vm.date = {
+                leftopen: false,
+                rightopen: false,
+                inlineOptions: {
+                    showWeeks: false
+                },
+                dateOptions: {
+                    //dateDisabled: disabled,
+                    formatYear: 'yyyy',
+                    formatMonth: 'MM',
+                    formatDay: 'dd',
+                    maxDate: new Date(5000, 1, 1),
+                    minDate: new Date(1900, 1, 1),
+                    startingDay: 1
+                },
+                openleft: function () {
+                    vm.date.leftopen = !vm.date.leftopen;
+                },
+                openright: function () {
+                    vm.date.rightopen = !vm.date.rightopen;
+                }
+            }
             vm.activity = {};
             if (aid) {
                 dataFactory.action("api/activity/detail", "", null, { id: aid })
@@ -40,14 +40,14 @@
                           abp.notify.error(res.error);
                       }
                   });
-            } 
-         
+            }
+
             vm.cancel = function () {
                 $state.go("activity");
             }
             //保存
             vm.save = function () {
-                if (vm.activity.id<=0&& vm.file.show.length<=0) {
+                if (vm.activity.id <= 0 && vm.file.show.length <= 0) {
                     abp.notify.warn("请先上传文件");
                     return;
                 }
@@ -86,7 +86,13 @@
                         token: vm.file.token
                     });
                     vm.file.selectFiles[index].upload.then(function (response) {
-                        var dto = { title: vm.file.selectFiles[index].file.name, url: "http://7niu.efanyun.com/" + response.key };
+                        var fileName=vm.file.selectFiles[index].file.name;
+                        var dto = {
+                            title: fileName,
+                            url: "http://7niu.efanyun.com/" + response.key,
+                            isTitle: fileName.indexOf("title") >= 0,
+                            isShare: fileName.indexOf("share") >= 0
+                        };
                         vm.file.show.push(dto);
                         vm.file.uploadstate = true;
                     }, function (response) {
