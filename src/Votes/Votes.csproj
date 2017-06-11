@@ -265,6 +265,11 @@
     <Content Include="assets\global\plugins\sweetalert\sweet-alert.html" />
     <Content Include="assets\global\plugins\sweetalert\sweet-alert.js" />
     <Content Include="assets\global\plugins\sweetalert\sweet-alert.min.js" />
+    <Content Include="assets\global\plugins\textangular\angular-spectrum-colorpicker.min.js" />
+    <Content Include="assets\global\plugins\textangular\spectrum.min.css" />
+    <Content Include="assets\global\plugins\textangular\spectrum.min.js" />
+    <Content Include="assets\global\plugins\textangular\style.css" />
+    <Content Include="assets\global\plugins\textangular\textAngular-dropdownToggle.js" />
     <Content Include="assets\global\plugins\textangular\textAngular-rangy.min.js" />
     <Content Include="assets\global\plugins\textangular\textAngular-sanitize.js" />
     <Content Include="assets\global\plugins\textangular\textAngular-sanitize.min.js" />

@@ -13,7 +13,7 @@ var MetronicApp = angular.module("MetronicApp", [
     'angularFileUpload',//文件上传
     'abp', 'ngLocale',
     "isteven-multi-select",//下拉标签
-    , "textAngular"
+    , "textAngular", 'angularSpectrumColorpicker', 'ui.bootstrap.dropdownToggle'
 ]);
 
 //懒加载
@@ -293,3 +293,79 @@ MetronicApp.run(["$rootScope", "settings", "$state", function ($rootScope, setti
     };
 
 }]);
+
+MetronicApp.config(function ($provide) {
+    $provide.decorator('taOptions', ['taRegisterTool', '$delegate', function (taRegisterTool, taOptions) {
+        // $delegate is the taOptions we are decorating
+        // register the tool with textAngular
+
+        taRegisterTool('backgroundColor', {
+            display: "<div spectrum-colorpicker ng-model='color' on-change='!!color && action(color)' format='\"hex\"' options='options'></div>",
+            action: function (color) {
+                var me = this;
+                if (!this.$editor().wrapSelection) {
+                    setTimeout(function () {
+                        me.action(color);
+                    }, 100)
+                } else {
+                    return this.$editor().wrapSelection('backColor', color);
+                }
+            },
+            options: {
+                replacerClassName: 'fa fa-paint-brush', showButtons: false
+            },
+            color: "#fff"
+        });
+        taRegisterTool('fontColor', {
+            display: "<spectrum-colorpicker trigger-id='{{trigger}}' ng-model='color' on-change='!!color && action(color)' format='\"hex\"' options='options'></spectrum-colorpicker>",
+            action: function (color) {
+                var me = this;
+                if (!this.$editor().wrapSelection) {
+                    setTimeout(function () {
+                        me.action(color);
+                    }, 100)
+                } else {
+                    return this.$editor().wrapSelection('foreColor', color);
+                }
+            },
+            options: {
+                replacerClassName: 'fa fa-font', showButtons: false
+            },
+            color: "#000"
+        });
+
+
+
+
+
+        taRegisterTool('fontSize', {
+            display: "<span class='bar-btn-dropdown dropdown'>" +
+            "<button class='btn btn-blue dropdown-toggle' type='button' ng-disabled='showHtml()' style='padding-top: 4px'><i class='fa fa-text-height'></i><i class='fa fa-caret-down'></i></button>" +
+            "<ul class='dropdown-menu'><li ng-repeat='o in options'><button class='btn btn-blue checked-dropdown' style='font-size: {{o.css}}; width: 100%' type='button' ng-click='action($event, o.value)'><i ng-if='o.active' class='fa fa-check'></i> {{o.name}}</button></li></ul>" +
+            "</span>",
+            action: function (event, size) {
+                //Ask if event is really an event.
+                if (!!event.stopPropagation) {
+                    //With this, you stop the event of textAngular.
+                    event.stopPropagation();
+                    //Then click in the body to close the dropdown.
+                    $("body").trigger("click");
+                }
+                return this.$editor().wrapSelection('fontSize', parseInt(size));
+            },
+            options: [
+                { name: 'xx-small', css: 'xx-small', value: 1 },
+                { name: 'x-small', css: 'x-small', value: 2 },
+                { name: 'small', css: 'small', value: 3 },
+                { name: 'medium', css: 'medium', value: 4 },
+                { name: 'large', css: 'large', value: 5 },
+                { name: 'x-large', css: 'x-large', value: 6 },
+                { name: 'xx-large', css: 'xx-large', value: 7 }
+
+            ]
+        });
+        // add the button to the default toolbar definition
+        taOptions.toolbar[1].push('backgroundColor', 'fontColor', 'fontName', 'fontSize');
+        return taOptions;
+    }]);
+});
