@@ -354,13 +354,13 @@ MetronicApp.config(function ($provide) {
                 return this.$editor().wrapSelection('fontSize', parseInt(size));
             },
             options: [
-                { name: 'xx-small', css: 'xx-small', value: 1 },
-                { name: 'x-small', css: 'x-small', value: 2 },
-                { name: 'small', css: 'small', value: 3 },
-                { name: 'medium', css: 'medium', value: 4 },
-                { name: 'large', css: 'large', value: 5 },
-                { name: 'x-large', css: 'x-large', value: 6 },
-                { name: 'xx-large', css: 'xx-large', value: 7 }
+                { name: '极小', css: 'xx-small', value: 1 },
+                { name: '微小', css: 'x-small', value: 2 },
+                { name: '小', css: 'small', value: 3 },
+                { name: '中', css: 'medium', value: 4 },
+                { name: '大', css: 'large', value: 5 },
+                { name: '很大', css: 'x-large', value: 6 },
+                { name: '极大', css: 'xx-large', value: 7 }
 
             ]
         });
