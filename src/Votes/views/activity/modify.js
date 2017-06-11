@@ -88,8 +88,9 @@
                     vm.file.selectFiles[index].upload.then(function (response) {
                         var fileName=vm.file.selectFiles[index].file.name;
                         var dto = {
+                            sort:index,
                             title: fileName,
-                            url: "http://7niu.efanyun.com/" + response.key,
+                            url: "http://image.leftins.com/" + response.key,
                             isTitle: fileName.indexOf("title") >= 0,
                             isShare: fileName.indexOf("share") >= 0
                         };

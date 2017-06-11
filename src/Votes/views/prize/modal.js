@@ -6,7 +6,7 @@
 
             });
             var vm = this;
-            vm.level = [{ id: 1, name: "一等奖" }, { id: 2, name: "二等奖" }, { id: 3, name: "三等奖" }, { id: 4, name: "参与奖" }];
+            vm.level = [{ id: 1, name: "一等奖" }, { id: 2, name: "二等奖" }, { id: 3, name: "三等奖" }, { id: 4, name: "四等奖" }, { id:5, name: "五等奖" }, { id: 6, name: "参与奖" }];
             vm.gift = {};
             vm.activitys = [];
             vm.url = "api/prize/modify";
@@ -77,7 +77,7 @@
                         token: vm.file.token
                     });
                     vm.file.selectFiles[index].upload.then(function (response) {
-                        var dto = { imageName: vm.file.selectFiles[index].file.name, imageUrl: "http://7niu.efanyun.com/" + response.key };
+                        var dto = { imageName: vm.file.selectFiles[index].file.name, imageUrl: "http://image.leftins.com/" + response.key };
                         vm.file.show.push(dto);
                         vm.file.uploadstate = true;
                     }, function (response) {

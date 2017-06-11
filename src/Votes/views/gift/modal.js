@@ -77,7 +77,7 @@
                         token: vm.file.token
                     });
                     vm.file.selectFiles[index].upload.then(function (response) {
-                        var dto = { imageName: vm.file.selectFiles[index].file.name, imageUrl: "http://7niu.efanyun.com/" + response.key };
+                        var dto = { imageName: vm.file.selectFiles[index].file.name, imageUrl: "http://image.leftins.com/" + response.key };
                         vm.file.show.push(dto);
                         vm.file.uploadstate = true;
                     }, function (response) {
