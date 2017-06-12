@@ -97,13 +97,24 @@
                    });
 
             }
+            vm.allow = function () {
+                var ids = Object.getOwnPropertyNames(vm.table.checkModel);
+                if (ids.length <= 0) {
+                    abp.notify.warn("请选择要操作的对象");
+                    return;
+                }
+                dataFactory.action("api/actor/disablevote", "", null, { list: ids,state:true }).then(function (res) {
+                    abp.notify.success("禁用成功");
+                    vm.init();
+                });
+            }
             vm.disable = function () {
                 var ids = Object.getOwnPropertyNames(vm.table.checkModel);
                 if (ids.length <= 0) {
                     abp.notify.warn("请选择要操作的对象");
                     return;
                 }
-                dataFactory.action("api/actor/disablevote", "", null, { list: ids }).then(function (res) {
+                dataFactory.action("api/actor/disablevote", "", null, { list: ids, state: false }).then(function (res) {
                     abp.notify.success("禁用成功");
                     vm.init();
                 });
