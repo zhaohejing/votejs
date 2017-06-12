@@ -89,7 +89,7 @@
             vm.public = function () {
                 var ids = Object.getOwnPropertyNames(vm.table.checkModel);
                 if (ids.length <= 0) {
-                    abp.notify.warn("请选择单个操作对象");
+                    abp.notify.warn("请选择要操作的对象");
                     return;
                 }
                 for (var i in vm.table.checkModel) {
