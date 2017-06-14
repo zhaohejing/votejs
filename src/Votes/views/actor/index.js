@@ -53,9 +53,9 @@
                         model: function () { return { activityId:activityId } },
                     }
                 });
-                modal.result.then(function (response) {
+                modal.result.then(function(response) {
                     vm.init();
-                })
+                });
             }
             vm.edit = function () {
                 var id = Object.getOwnPropertyNames(vm.table.checkModel);
@@ -72,9 +72,9 @@
                         model: function () { return { id: id[0], activityId: activityId } },
                     }
                 });
-                modal.result.then(function (response) {
+                modal.result.then(function(response) {
                     vm.init();
-                })
+                });
             }
 
             vm.delete = function () {

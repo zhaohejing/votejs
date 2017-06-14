@@ -479,6 +479,8 @@
   <ItemGroup>
     <Content Include="views\activity\index.html" />
     <Content Include="views\activity\index.js" />
+    <Content Include="views\activity\modal.html" />
+    <Content Include="views\activity\modal.js" />
     <Content Include="views\activity\modify.html" />
     <Content Include="views\activity\modify.js" />
     <Content Include="views\actor\index.html" />
@@ -521,7 +523,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>23614</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
