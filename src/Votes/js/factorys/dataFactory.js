@@ -5,7 +5,8 @@
             if (method=="") {
                 method = "POST";
             }
-            var u = "http://123.57.247.203:22222/";
+         //   var u = "http://123.57.247.203:22222/";
+            var u = "http://118.89.225.78:22222/";
             url = u + url;
             if (!headers) {
                 headers = { 'Content-Type': 'application/json' };
