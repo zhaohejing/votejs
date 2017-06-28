@@ -334,11 +334,6 @@ MetronicApp.config(function ($provide) {
             },
             color: "#000"
         });
-
-
-
-
-
         taRegisterTool('fontSize', {
             display: "<span class='bar-btn-dropdown dropdown'>" +
             "<button class='btn btn-blue dropdown-toggle' type='button' ng-disabled='showHtml()' style='padding-top: 4px'><i class='fa fa-text-height'></i><i class='fa fa-caret-down'></i></button>" +
